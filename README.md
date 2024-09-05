@@ -1,8 +1,11 @@
 # mouse-Geneformer
 Updating now...
+
 Comming soon.
 
+
 Writer: Keita Ito
+
 Email: itokeita0525@gmail.com
 
 ## Abstract 
@@ -46,10 +49,11 @@ Example of Pretraining run command is as follows:
 Downstream task is executed in jupyter files (`cell_classification.ipynb` and `in_silico_perturbation.ipynb`)
 
 ## Trained model
-We have published the model files of mouse-Geneformer. `mouse-Geneformer` is base model. `mouse-Geneformer-12L-E20` is large model.
+We have published the model files of mouse-Geneformer.
+
+ `mouse-Geneformer` is base model. `mouse-Geneformer-12L-E20` is large model.
 
 <!-- mouse-Geneformer の事前学習済みモデルの google drive の URL を載せる-->
 - [mouse-Geneformer](https://drive.google.com/...)
-
 <!-- mouse-Geneformer-L12-E20 の事前学習済みモデルの google drive の URL を載せる-->
 - [mouse-Geneformer-12L-E20](https://drive.google.com/...)
