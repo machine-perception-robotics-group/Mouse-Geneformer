@@ -36,6 +36,7 @@ Example of Pretraining run command is as follows:
 Downstream task is executed in jupyter files (`cell_classification.ipynb` and `in_silico_perturbation.ipynb`)
 
 ## Trained model
-The pretrained mouse-Geneformer is located in the folder pretrained_mouse-Geneformer.
+We have published the model files of mouse-Geneformer. `mouse-Geneformer` is base model. `mouse-Geneformer-12L-E20` is large model.
 
-
+- [mouse-Geneformer](https://drive.google.com/...)
+- [mouse-Geneformer-12L-E20](https://drive.google.com/...)
