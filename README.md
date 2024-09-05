@@ -3,13 +3,23 @@ Updating now...
 Comming soon.
 
 Writer: Keita Ito
+Email: itokeita0525@gmail.com
 
 ## Abstract 
 This repository contains the source code of mouse-Geneformer for analysing Single-cell RNA-sequence data of mouse. mosue-Geneformer is a model pre-trained on the large mouse single-cell dataset mouse-Genecorpus-20M and designed to map the mouse gene network. The mosue-Geneformer improves the accuracy of cell type classification of mouse cells and enables in silico perturbation experiments on mouse specimens.
 
+<!-- PLOS Genetics の URL を載せる-->
+<!-- [[PLOS Genetics](hhttps://journals.plos.org/plosgenetics/...)]-->
+
+<!--bioRxiv の URL を載せる -->
+[[bioRxiv](https://www.biorxiv.org/content/...)]
+
 ## Citation
 If you find this repository is useful. Please cite the following references.
 
+<!-- PLOS Genetics の bibtex を載せる -->
+
+<!--bioRxiv の bibtex を載せる -->
 ```bibtex 
 @article{aaaaaaa,
     author = {Keita Ito and Tsubasa Hirakawa and Shuji Shigenobu and Takayoshi Yamashita and Hironobu Fujiyoshi},
@@ -38,5 +48,8 @@ Downstream task is executed in jupyter files (`cell_classification.ipynb` and `i
 ## Trained model
 We have published the model files of mouse-Geneformer. `mouse-Geneformer` is base model. `mouse-Geneformer-12L-E20` is large model.
 
+<!-- mouse-Geneformer の事前学習済みモデルの google drive の URL を載せる-->
 - [mouse-Geneformer](https://drive.google.com/...)
+
+<!-- mouse-Geneformer-L12-E20 の事前学習済みモデルの google drive の URL を載せる-->
 - [mouse-Geneformer-12L-E20](https://drive.google.com/...)
