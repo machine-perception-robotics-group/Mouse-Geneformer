@@ -52,6 +52,6 @@ We have published the model files of mouse-Geneformer.
  `mouse-Geneformer` is base model. `mouse-Geneformer-12L-E20` is large model.
 
 <!-- mouse-Geneformer の事前学習済みモデルの google drive の URL を載せる-->
-<!-- - [mouse-Geneformer](https://drive.google.com/...) -->
+- [mouse-Geneformer](https://drive.google.com/file/d/15MEvH7anJmUQayuJ6KISvDFEiDcfOlA4/view?usp=sharing)
 <!-- mouse-Geneformer-L12-E20 の事前学習済みモデルの google drive の URL を載せる-->
-<!-- - [mouse-Geneformer-12L-E20](https://drive.google.com/...) -->
+- [mouse-Geneformer-12L-E20](https://drive.google.com/file/d/1a5bKVwOyE984AyqWjcysoHfd_Z1ifXti/view?usp=sharing)
