@@ -72,9 +72,9 @@ def main(**kwargs) :
     # model type
     model_type = "bert"                 # (default: bert)
     # Pre text task
-    task = "MLM"                        # (choice pretext tasks MLM, NSP or BERT)
+    task = "MLM"                        # (choice pretext tasks MLM)
     # max input size
-    max_input_size = (2**11)              # (default: 2**11 = 2048, NSP: (2**11)+1) 
+    max_input_size = 2**11              # (default: 2**11 = 2048) 
     # number of layers
     num_layers = 6                      # (default: 6)
     # number of attention heads
@@ -121,7 +121,7 @@ def main(**kwargs) :
 
     # set training parameters
     # total number of examples in Genecorpus-30M after QC filtering:
-    #　(default: 27_406_208) genecorpus-30M:27_406_208, mouse-genecorups-20M_data1:22_226_957, mouse-genecorups-20M_data1-v2:21_332_982, mouse-genecorups-20M_data1-v2NSPversion1:21_333_004, mouse-genecorpus-20M_data1-v2NSPversion2:42_665_964
+    #　(default: 27_406_208) genecorpus-30M:27_406_208, mouse-genecorups-20M_data1-v2:21_332_982
     num_examples = 21_332_982
     # number gpus
     num_gpus = 8                # (default: 12)
@@ -172,25 +172,15 @@ def main(**kwargs) :
 
     # Load datasets
     if mouse_geneformer_flag == True :
-        dataset_version = "-n1" if task in ["MLM"] and num_examples==21_332_982 else "1" if task in ["NSP", "BERT"] and num_examples==21_333_004 else "2"
+        dataset_version = "-n1"
         print("dataset_version: {}".format(dataset_version))
         if dataset_version == "-n1" :
             dataset_path = "/path/to/MLM-re_All_mouse_tokenize_dataset.dataset"
             dataset_length_path = "/path/to/MLM-re_All_mouse_tokenize_dataset_length.pkl"
             token_dictionary_path = "/path/to/MLM-re_token_dictionary_v1.pkl"
-        
-        elif dataset_version == "1" :
-            dataset_path = "/path/to/MLM-NSP-re_All_mouse_tokenize_dataset_v1.dataset"
-            dataset_length_path = "/path/to/MLM-NSP-re_All_mouse_tokenize_dataset_v1_length.pkl"
-            token_dictionary_path = "/path/to/MLM-NSP-re_token_dictionary_v1.pkl"
-        
-        elif dataset_version == "2" :
-            dataset_path = "/path/to/MLM-NSP-re_All_mouse_tokenize_dataset_v2.dataset"
-            dataset_length_path = "/path/to/MLM-NSP-re_All_mouse_tokenize_dataset_v2_length.pkl"
-            token_dictionary_path = "/path/to/MLM-NSP-re_token_dictionary_v1.pkl"
-        
+                
         else :
-            print("select tasks in [MLM, NSP, BERT] right or select total cells (num_examples) right.")
+            print("select tasks in MLM right or select total cells (num_examples) right.")
             sys.exit(1)
     
     elif mouse_geneformer_flag == False :
@@ -268,10 +258,6 @@ def main(**kwargs) :
     # load model
     if task == "MLM" :
         model = BertForMaskedLM(config) # Masked Language Modeling (MLM)
-    elif task == "NSP" :
-        model = BertForNextSentencePrediction(config) # Next Sentence Prediction (NSP)
-    elif task == "BERT" :
-        model = BertForPreTraining(config) # MLM and NSP
     else :
         pass
     
