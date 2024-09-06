@@ -46,9 +46,6 @@ from typing import Any, Callable, Dict, List, NewType, Optional, Tuple, Union # 
 from geneformer import GeneformerPretrainer
 
 
-from SimCSE_util import BertForSimCSE, BertForSimCSEpp, BertForMaskedMLandSimCSE, BertForMaskedMLandSimCSEpp
-
-
 seed_num = 0
 random.seed(seed_num)
 np.random.seed(seed_num)
@@ -75,7 +72,7 @@ def main(**kwargs) :
     # model type
     model_type = "bert"                 # (default: bert)
     # Pre text task
-    task = "MLM"                        # (choice pretext tasks MLM)
+    task = "MLM"                        # (choice pretext tasks MLM, NSP or BERT)
     # max input size
     max_input_size = (2**11)              # (default: 2**11 = 2048, NSP: (2**11)+1) 
     # number of layers
@@ -173,7 +170,7 @@ def main(**kwargs) :
         pass
 
 
-    # データセットのロード
+    # Load datasets
     if mouse_geneformer_flag == True :
         dataset_version = "-n1" if task in ["MLM"] and num_examples==21_332_982 else "1" if task in ["NSP", "BERT"] and num_examples==21_333_004 else "2"
         print("dataset_version: {}".format(dataset_version))
@@ -183,23 +180,23 @@ def main(**kwargs) :
             token_dictionary_path = "/path/to/MLM-re_token_dictionary_v1.pkl"
         
         elif dataset_version == "1" :
-            dataset_path = "/mnt/keita/data/scRNA-datas/mouse_data/mouse-Geneformer/mouse-genecorpus-20M/data1-v2/tokens/MLM-NSP-re_All_mouse_tokenize_dataset_v1.dataset"
-            dataset_length_path = "/mnt/keita/data/scRNA-datas/mouse_data/mouse-Geneformer/mouse-genecorpus-20M/data1-v2/tokens/MLM-NSP-re_All_mouse_tokenize_dataset_v1_length.pkl"
-            token_dictionary_path = "/mnt/keita/data/scRNA-datas/mouse_data/mouse-Geneformer/mouse-genecorpus-20M/data1-v2/tokens/MLM-NSP-re_token_dictionary_v1.pkl"
+            dataset_path = "/path/to/MLM-NSP-re_All_mouse_tokenize_dataset_v1.dataset"
+            dataset_length_path = "/path/to/MLM-NSP-re_All_mouse_tokenize_dataset_v1_length.pkl"
+            token_dictionary_path = "/path/to/MLM-NSP-re_token_dictionary_v1.pkl"
         
         elif dataset_version == "2" :
-            dataset_path = "/mnt/keita/data/scRNA-datas/mouse_data/mouse-Geneformer/mouse-genecorpus-20M/data1-v2/tokens/MLM-NSP-re_All_mouse_tokenize_dataset_v2.dataset"
-            dataset_length_path = "/mnt/keita/data/scRNA-datas/mouse_data/mouse-Geneformer/mouse-genecorpus-20M/data1-v2/tokens/MLM-NSP-re_All_mouse_tokenize_dataset_v2_length.pkl"
-            token_dictionary_path = "/mnt/keita/data/scRNA-datas/mouse_data/mouse-Geneformer/mouse-genecorpus-20M/data1-v2/tokens/MLM-NSP-re_token_dictionary_v1.pkl"
+            dataset_path = "/path/to/MLM-NSP-re_All_mouse_tokenize_dataset_v2.dataset"
+            dataset_length_path = "/path/to/MLM-NSP-re_All_mouse_tokenize_dataset_v2_length.pkl"
+            token_dictionary_path = "/path/to/MLM-NSP-re_token_dictionary_v1.pkl"
         
         else :
-            print("select tasks in [MLM, SimCSE, SimCSEpp, MLM-SimCSE, MLM-SimCSEpp, NSP, BERT] right or select total cells (num_examples) right.")
+            print("select tasks in [MLM, NSP, BERT] right or select total cells (num_examples) right.")
             sys.exit(1)
     
     elif mouse_geneformer_flag == False :
-        dataset_path = "/mnt/keita/data/scRNA-datas/human_data/Geneformer/genecorpus-30M/genecurpus_30M_2048.dataset"
-        dataset_length_path = "/mnt/keita/data/scRNA-datas/human_data/Geneformer/genecorpus-30M/genecorpus_30M_2048_lengths.pkl"
-        token_dictionary_path = "/mnt/keita/data/scRNA-datas/human_data/Geneformer/genecorpus-30M/token_dictionary_human_myocardial-covid19-ctchuman_mouse_cop1ko-easy-hard.pkl"
+        dataset_path = "/path/to/genecurpus_30M_2048.dataset"
+        dataset_length_path = "/path/to/genecorpus_30M_2048_lengths.pkl"
+        token_dictionary_path = "/path/to/token_dictionary_human_myocardial-covid19-ctchuman_mouse_cop1ko-easy-hard.pkl"
         
     else :
         print("select organism mouse or human")
@@ -207,23 +204,23 @@ def main(**kwargs) :
     
     train_dataset=load_from_disk(dataset_path)
 
-    # token directory のロード
+    # Load token directory
     with open(token_dictionary_path, "rb") as fp:
         token_dictionary = pickle.load(fp)
     
     
-    # config の追加
+    # Add config
     config["pad_token_id"] = token_dictionary.get("<pad>")
     config["vocab_size"] = len(token_dictionary)
 
 
-    # 事前学習済みモデルを使用するかどうか
+    # Using pretrain model or not using pretrain model
     if use_pretrained == False :
         use_or_not_use = "-NUse"
     else :
         use_or_not_use = "-Use"
     
-    # check the config if you use MLM task.
+    # Check the config if you use MLM task.
     if mouse_geneformer_flag == False and task == "MLM" and num_examples == 27_406_208 :
         if use_or_not_use == "-NUse":
             pass
@@ -235,7 +232,7 @@ def main(**kwargs) :
         pass
     
     
-    # モデルや log の保存先作成
+    # Generate saving path of model and logdata
     current_date = datetime.datetime.now(tz=timezone)
     datestamp = f"{str(current_date.year)[-2:]}{current_date.month:02d}{current_date.day:02d}_{current_date.strftime('%X').replace(':','')}"
     if mouse_geneformer_flag == True :
@@ -256,68 +253,36 @@ def main(**kwargs) :
     subprocess.call(f"mkdir {model_output_dir}", shell=True)
 
 
-    # training args の追加
+    # Add training args
     training_args["output_dir"] = training_output_dir
     training_args["logging_dir"] = logging_dir
 
-    # training_args の作成
+    # Generate training_args
     training_args = TrainingArguments(**training_args)
     
     
-    # 事前学習済みモデルを使用するかどうか
-    if use_pretrained == False :
-        print("Generate the Bert model!")
-        # BertConfig の生成
-        config = BertConfig(**config)
+    print("Generate the Bert model!")
+    # Generate BertConfig
+    config = BertConfig(**config)
 
-        # モデルの読み込み
-        if task == "MLM" :
-            model = BertForMaskedLM(config) # Masked Language Modeling (MLM)
-        elif task == "NSP" :
-            model = BertForNextSentencePrediction(config) # Next Sentence Prediction (NSP)
-        elif task == "BERT" :
-            model = BertForPreTraining(config) # MLM and NSP
-        elif task == "SimCSE" :
-            model = BertForSimCSE(config) # SimCSE
-        elif task == "SimCSEpp" :
-            model = BertForSimCSEpp(config) # SimCSEpp 
-        elif task == "MLM-SimCSE" :
-            model = BertForMaskedMLandSimCSE(config) # MLM and SimCSE
-        elif task == "MLM-SimCSEpp" :
-            model = BertForMaskedMLandSimCSEpp(config) # MLM and SimCSEpp
-        else :
-            pass
-
+    # load model
+    if task == "MLM" :
+        model = BertForMaskedLM(config) # Masked Language Modeling (MLM)
+    elif task == "NSP" :
+        model = BertForNextSentencePrediction(config) # Next Sentence Prediction (NSP)
+    elif task == "BERT" :
+        model = BertForPreTraining(config) # MLM and NSP
     else :
-        print("Load the Bert model!")
-        # pretrained model の指定
-        pretrain_model = "240726_132947_mouse-geneformer_20M_DV-n1_PTTMLM_L6_emb256_SL2048_E10_B12_LR0.001_LScosine_WU10000_ACTsilu_Oadamw_DS8"
-        model_path = "/mnt/keita/data/prog/jupyter/Geneformer/models/{}/models".format(pretrain_model)
+        pass
+    
 
-        # モデルの読み込み
-        if task == "SimCSE" :
-            model = BertForSimCSE.from_pretrained(model_path)
-        elif task == "SimCSEpp" :
-            model = BertForSimCSEpp.from_pretrained(model_path)
-        else :
-            pass
-
-        # change dropout rate
-        if change_dropout_rate == True :
-            for name, module in model.named_modules():
-                if isinstance(module, nn.Dropout):
-                    module.p = hidden_dropout_prob
-        else :
-            pass
-
-
-    # モデルを学習モードへ        
+    # model mode is train        
     model = model.train()
 
     pretrain_model_name = "mouse-Geneformer" if mouse_geneformer_flag==True else "Geneformer"
     print("Starting {} training by {} task.".format(pretrain_model_name, task))
 
-    # trainer の定義
+    # Define trainer
     trainer = GeneformerPretrainer(
         model=model,
         args=training_args,
@@ -329,7 +294,7 @@ def main(**kwargs) :
         pretext_task = task,
     )
 
-    # train 開始
+    # Start training
     start_time = time()
     if epochs == 0 :
         pass
@@ -370,13 +335,11 @@ if __name__ =="__main__" :
     if version.parse(torch.__version__) >= version.parse("1.6"):
         _is_torch_generator_available = True
 
-    # with open(TOKEN_DICTIONARY_FILE, "rb") as f:
-    #     token_dictionary = pickle.load(f)
     
-    # geneformer か mouse-Geneformer か
+    # Flag of geneformer or mouse-Geneformer 
     mouse_flag = True
 
-    # 事前学習済みモデルを使用するかどうか
+    # Falg of using pretrained model or not using pretrained mode 
     use_pretrained = False
 
     # change dropout rate
