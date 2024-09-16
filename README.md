@@ -1,8 +1,4 @@
 # mouse-Geneformer
-Updating now...
-
-Comming soon!
-
 
 Writer: Keita Ito
 
@@ -13,7 +9,7 @@ This repository contains the source code of mouse-Geneformer for analysing Singl
 <!-- [[PLOS Genetics](hhttps://journals.plos.org/plosgenetics/...)]-->
 
 <!--bioRxiv の URL を載せる -->
-<!-- [[bioRxiv](https://www.biorxiv.org/content/...)] -->
+[[bioRxiv](https://www.biorxiv.org/content/10.1101/2024.09.09.611960v1)]
 
 ## Citation
 If you find this repository is useful. Please cite the following references.
@@ -21,15 +17,15 @@ If you find this repository is useful. Please cite the following references.
 <!-- PLOS Genetics の bibtex を載せる -->
 
 <!--bioRxiv の bibtex を載せる -->
-<!-- ```bibtex 
-@article{aaaaaaa,
-    author = {Keita Ito and Tsubasa Hirakawa and Shuji Shigenobu and Takayoshi Yamashita and Hironobu Fujiyoshi},
+```bibtex 
+@article{Shigenobu2024.09.09.611960,
+	author = {Shigenobu, Shuji and Ito, Keita and Hirakawa, Tsubasa and Fujiyoshi, Hironobu and Yamashita, Takayoshi},
     title = {Mouse-Geneformer: A Deep Leaning Model for Mouse Single-Cell Transcriptome and Its Cross-Species Utility},
-    journal = {xxxx},
-    year = {20yy},
-    pages = {zzzz-zzzz}
+    journal = {bioRxiv},
+    year = {2024},
+    URL = {https://www.biorxiv.org/content/early/2024/09/13/2024.09.09.611960}
 }
-``` -->
+```
 ## Enviroment
 Our source code is based on mplemented with PyTorch. 
 Required PyTorch and Python version is as follows:
