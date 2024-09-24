@@ -19,11 +19,11 @@ If you find this repository is useful. Please cite the following references.
 <!--bioRxiv の bibtex を載せる -->
 ```bibtex 
 @article{Ito2024.09.09.611960,
-author = {Ito, Keita and Hirakawa, Tsubasa and Shigenobu, Shuji and Fujiyoshi, Hironobu and Yamashita, Takayoshi},
-title = {Mouse-Geneformer: A Deep Leaning Model for Mouse Single-Cell Transcriptome and Its Cross-Species Utility},
-journal = {bioRxiv},
-year = {2024},
-URL = {https://www.biorxiv.org/content/early/2024/09/13/2024.09.09.611960}
+   author = {Ito, Keita and Hirakawa, Tsubasa and Shigenobu, Shuji and Fujiyoshi, Hironobu and Yamashita, Takayoshi},
+   title = {Mouse-Geneformer: A Deep Leaning Model for Mouse Single-Cell Transcriptome and Its Cross-Species Utility},
+   journal = {bioRxiv},
+   year = {2024},
+   URL = {https://www.biorxiv.org/content/early/2024/09/13/2024.09.09.611960}
 }
 ```
 ## Enviroment
