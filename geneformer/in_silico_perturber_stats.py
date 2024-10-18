@@ -31,22 +31,12 @@ from tqdm.notebook import trange, tqdm
 
 from .in_silico_perturber import flatten_list
 
-from .tokenizer import TOKEN_DICTIONARY_FILE, ORGANISM, MH_FLAG
+from .tokenizer import TOKEN_DICTIONARY_FILE
 import sys
 
-if ORGANISM == "human" :
-    if MH_FLAG == True :
-        GENE_NAME_ID_DICTIONARY_FILE = "/mnt/keita/data/scRNA-datas/human_data/Geneformer/genecorpus-30M/token_dictionary_human_myocardial-covid19-ctchuman_mouse_cop1ko-easy-hard_GeneSymbol_to_EnsemblID_HGNCver.pkl"
-    else :
-        GENE_NAME_ID_DICTIONARY_FILE = "/mnt/keita/data/scRNA-datas/human_data/Geneformer/genecorpus-30M/token_dictionary_human_myocardial-covid19-ctchuman_mouse_cop1ko-easy-hard_GeneSymbol_to_EnsemblID.pkl"
-elif ORGANISM == "mouse" :
-    if MH_FLAG == True :
-        GENE_NAME_ID_DICTIONARY_FILE = "/mnt/keita/data/scRNA-datas/mouse_data/mouse-Geneformer/mouse-genecorpus-20M/data1/tokens/token_dictionary_human_myocardial-covid19-ctchuman_mouse_SmThkidney-cop1ko-easy-hard_GeneSymbol_to_EnsemblID_MGIver.pkl"
-    else :
-        GENE_NAME_ID_DICTIONARY_FILE = "/mnt/keita/data/scRNA-datas/mouse_data/mouse-Geneformer/mouse-genecorpus-20M/data1-v2/tokens/MLM-re_token_dictionary_v1_add_niigata_GeneSymbol_to_EnsemblID.pkl"
-else :
-    print("in in_silico_perturber_stats.py: Not select organism (human or mouse)")
-    sys.exit(1)
+
+GENE_NAME_ID_DICTIONARY_FILE = "/path/to/save/MLM-re_token_dictionary_v1_GeneSymbol_to_EnsemblID.pkl"
+
 
 logger = logging.getLogger(__name__)
 
