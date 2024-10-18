@@ -136,7 +136,7 @@ def main(**kwargs) :
     # number of epochs
     epochs = 10                 # (default: 3)
     # optimizer
-    optimizer = "adamw"         # (default: adamw)
+    optimizer = "adamw_torch"         # (default: adamw)
     # weight_decay
     weight_decay = 0.001        # (default: 0.001)
 
