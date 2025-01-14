@@ -1,4 +1,4 @@
-# mouse-Geneformer
+# Mouse-Geneformer
 
 Writer: Keita Ito
 
